@@ -1,11 +1,7 @@
 # Shell-Scripts
 Scripts for Various Projects
 
-## Gammu
+You can see on each folder instructions for lanching scripts.
 
-Script Shell for Intialize Gammu software, with Mysql Backend, on a Raspberry Pi 4 which is connected with a GSM Hat.
-
-```bash
-sudo sh start.sh
-```
+### Gammu
 
