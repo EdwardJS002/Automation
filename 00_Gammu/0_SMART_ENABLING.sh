@@ -13,7 +13,7 @@ osversion=$(grep '^ID=' /etc/os-release | cut -c4-);
 
 echo $osversion
 
-if [ $osversion == 'ubuntu' ]
+if [ $osversion = 'ubuntu' ]
   then 
     echo "Vous avez choisi Ubuntu"
 
