@@ -2,7 +2,8 @@
 
 if [ `whoami` != 'root' ]
   then
-    echo "You must be root to do this."
+    echo "Vous devez être utilisateur root pour executer ce script. Utilisez:"
+    echo "sudo sh ./1_START.sh"
     exit
 fi
 
@@ -14,7 +15,7 @@ osversion=$(grep '^ID=' /etc/os-release | cut -c4-);
 
 if [ $osversion = 'ubuntu' ]
   then 
-    echo "Vous avez choisi Ubuntu"
+    echo "Vous avez choisi Ubuntu comme système d'exploitation."
 
     mv /boot/firmware/config.txt /boot/firmware/config_old.txt
     mv /boot/firmware/cmdline.txt /boot/firmware/cmdline_old.txt
@@ -22,11 +23,11 @@ if [ $osversion = 'ubuntu' ]
     cp ./UTILS/ubuntu/config.txt /boot/firmware/config.txt
     cp ./UTILS/ubuntu/cmdline.txt /boot/firmware/cmdline.txt
 
-    echo "CHANGING FILE OK"
+    echo "Changement des fichiers pour utiliser le module SMS OK !"
 
 elif [ $osversion == 'raspbian' ]
   then
-    echo "Vous avez choisi Raspberry Pi OS"
+    echo "Vous avez choisi Raspberry Pi OS comme système d'exploitation."
 
     mv /boot/config.txt /boot/config_old.txt
     mv /boot/cmdline.txt /boot/cmdline_old.txt
@@ -34,7 +35,7 @@ elif [ $osversion == 'raspbian' ]
     cp ./UTILS/raspberry/config.txt /boot/config.txt
     cp ./UTILS/raspberry/cmdline.txt /boot/cmdline.txt
 
-    echo "CHANGING FILE OK"
+    echo "Changement des fichiers pour utiliser le module SMS OK !"
 
 else
   echo "Le Système d'exploitation n'a pas été reconnu... Aucune action n'a été effectuée..."
@@ -43,7 +44,7 @@ fi
 
 ##############################################################################################
 
-echo "Quel est le numero de telephone Test ? :"
+echo "Quel est votre numero de telephone (Pour vérification) ? :"
 read phone
 
 GAMMU_PHONE=$phone
@@ -121,11 +122,9 @@ mysql smsd < ./UTILS/2_SMSD_DATABASE.sql
 echo "Restarting and Testing Gammu SMSD"
 
 service gammu-smsd restart
-echo "wait..."
-sleep 3
 
 gammu-smsd-inject TEXT $GAMMU_PHONE -len 1 -text "$GAMMU_TEST_MESSAGE"
 
-
 echo "It's Finished ! - Rebooting"
+reboot
 

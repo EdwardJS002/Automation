@@ -38,8 +38,8 @@ elif [ $osversion == 'raspbian' ]
     cp ./UTILS/raspberry/config.txt /boot/config.txt
     cp ./UTILS/raspberry/cmdline.txt /boot/cmdline.txt
 
-    echo "CHANGING FILE OK - REBOOTING"
-    wait 3
+    echo "Changement des fichiers OK - Le Sytème va redémarrer."
+    sleep 3
     reboot
     exit
 
