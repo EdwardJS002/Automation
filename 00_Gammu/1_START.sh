@@ -12,8 +12,6 @@ fi
 
 osversion=$(grep '^ID=' /etc/os-release | cut -c4-);
 
-echo $osversion
-
 if [ $osversion = 'ubuntu' ]
   then 
     echo "Vous avez choisi Ubuntu"
@@ -53,7 +51,7 @@ GAMMU_PHONE=$phone
 #echo "Quel est le message à envoyer ? : "
 #read test_message
 #GAMMU_TEST_MESSAGE=$test_message
-GAMMU_TEST_MESSAGE=`Tout fonctionne nickel à $(date +%H%M)`
+GAMMU_TEST_MESSAGE="Tout fonctionne nickel à $(date +%H%M)"
 
 echo "Quel est le mot de passe de la base de donnee ? :"
 read mysql_password
