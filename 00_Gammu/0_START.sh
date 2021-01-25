@@ -3,7 +3,7 @@
 if [ `whoami` != 'root' ]
   then
     echo "Vous devez être utilisateur root pour executer ce script. Utilisez:"
-    echo "sudo sh ./1_START.sh"
+    echo "sudo sh ./0_START.sh"
     exit
 fi
 
