@@ -66,12 +66,6 @@ GAMMU_MYSQL_PASSWORD=$mysql_password
 GAMMU_DEVICE_PATH="/dev/ttyS0"
 
 
-#Install Docker
-#curl -fsSL https://get.docker.com -o get-docker.sh
-#sh get-docker.sh
-#usermod -aG docker ubuntu
-#rm get-docker.sh
-
 #Update and Install Software
 echo "Installing Primary Software"
 sudo apt-get update -y && sudo apt-get upgrade -y
