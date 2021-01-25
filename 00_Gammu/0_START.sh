@@ -25,7 +25,7 @@ if [ $osversion = 'ubuntu' ]
 
     echo "Changement des fichiers pour utiliser le module SMS OK !"
 
-elif [ $osversion == 'raspbian' ]
+elif [ $osversion = 'raspbian' ]
   then
     echo "Vous avez choisi Raspberry Pi OS comme système d'exploitation."
 
