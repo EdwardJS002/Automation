@@ -1,6 +1,6 @@
-#Installation de Gammu sur Raspberry Pi
+# Installation de Gammu sur Raspberry Pi
 
-###Systèmes d'Exploitation supportés:
+### Systèmes d'Exploitation supportés:
 - Raspberry PI OS 32 bits
 - Raspberry PI OS 64 bits (beta)
 - Ubuntu OS 32 bits
