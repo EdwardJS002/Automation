@@ -6,8 +6,8 @@ if [ `whoami` != 'root' ]
     exit
 fi
 
-mv /boot/firmware/config.txt config_old.txt
-mv /boot/firmware/cmdline.txt cmdline_old.txt
+mv /boot/firmware/config.txt /boot/firmware/config_old.txt
+mv /boot/firmware/cmdline.txt /boot/firmware/cmdline_old.txt
 
 cp ./UTILS/config.txt /boot/firmware/config.txt
 cp ./UTILS/cmdline.txt /boot/firmware/cmdline.txt
