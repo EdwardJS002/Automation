@@ -23,7 +23,7 @@ if [ $osversion = 'ubuntu' ]
     cp ./UTILS/ubuntu/config.txt /boot/firmware/config.txt
     #cp ./UTILS/ubuntu/cmdline.txt /boot/firmware/cmdline.txt
 
-    sed -i -e 's/console=serial0,115200//g' /boot/firmware/cmdline.txt
+    sed -i -old 's/console=serial0,115200//g' /boot/firmware/cmdline.txt
 
     echo "Changement des fichiers pour utiliser le module SMS OK !"
 
@@ -37,7 +37,7 @@ elif [ $osversion = 'raspbian' ]
     cp ./UTILS/raspberry/config.txt /boot/config.txt
     #cp ./UTILS/raspberry/cmdline.txt /boot/cmdline.txt
 
-    sed -i -e 's/console=serial0,115200//g' /boot/cmdline.txt
+    sed -i -old 's/console=serial0,115200//g' /boot/cmdline.txt
 
     echo "Changement des fichiers pour utiliser le module SMS OK !"
 
