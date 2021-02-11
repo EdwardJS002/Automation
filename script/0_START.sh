@@ -17,10 +17,10 @@ if [ $osversion = 'ubuntu' ]
   then 
     echo "Vous avez choisi Ubuntu comme système d'exploitation."
 
-    mv /boot/firmware/config.txt /boot/firmware/config-old.txt
-    #mv /boot/firmware/cmdline.txt /boot/firmware/cmdline-old.txt
+    cp /boot/firmware/config.txt /boot/firmware/config-old.txt
+    cp /boot/firmware/cmdline.txt /boot/firmware/cmdline-old.txt
 
-    cp ./UTILS/ubuntu/config.txt /boot/firmware/config.txt
+    #cp ./UTILS/ubuntu/config.txt /boot/firmware/config.txt
     #cp ./UTILS/ubuntu/cmdline.txt /boot/firmware/cmdline.txt
 
     sed -i -e 's/console=serial0,115200//g' /boot/firmware/cmdline.txt
@@ -31,8 +31,8 @@ elif [ $osversion = 'raspbian' ]
   then
     echo "Vous avez choisi Raspberry Pi OS comme système d'exploitation."
 
-    mv /boot/config.txt /boot/config-old.txt
-    #mv /boot/cmdline.txt /boot/cmdline-old.txt
+    cp /boot/config.txt /boot/config-old.txt
+    cp /boot/cmdline.txt /boot/cmdline-old.txt
 
     cp ./UTILS/raspberry/config.txt /boot/config.txt
     #cp ./UTILS/raspberry/cmdline.txt /boot/cmdline.txt

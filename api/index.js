@@ -34,5 +34,5 @@ app.get('/', (req, res) => {
 // LISTENING
 
 app.listen(port, () => {
-	console.log(`Gammu SMS Api listening at http://localhost:${port}`);
+	console.log(`SMS Api listening at http://localhost:${port}`);
 });
