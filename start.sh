@@ -120,7 +120,7 @@ CommTimeout=5
 #Initialization of SMSD Database
 echo "Initialization of SMSD Database"
 
-sudo mysql smsd < ./UTILS/2_SMSD_DATABASE.sql
+sudo mysql smsd < ./utils/2_SMSD_DATABASE.sql
 
 #Restarting and Testing Gammu SMSD
 echo "Restarting and Testing Gammu SMSD"
@@ -141,7 +141,7 @@ cd ./app
 npm install
 pm2 start index.js --name=sms-api
 pm2 startup > startup.sh
-#sed -n '2p' startup.txt > pm2.sh
+sed -n '2p' startup.txt > pm2.sh
 sudo sh startup.sh 
 pm2 save
 
