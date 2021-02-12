@@ -135,7 +135,7 @@ sudo gammu-smsd-inject TEXT $GAMMU_PHONE -len 1 -text "$GAMMU_TEST_MESSAGE"
 
 sudo npm install pm2 -g
 
-cd ./app
+cd ./api
 npm install
 pm2 start index.js --name=sms-api
 pm2 startup |  sed -ne '/sudo/,$ p' | sh
