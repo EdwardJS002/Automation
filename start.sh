@@ -81,7 +81,7 @@ sudo apt-get install -y mariadb-server gammu gammu-smsd
 #Configuring Cammu Configuration File
 echo "Configuring gammurc"
 
-echo "[gammu]
+sudo echo "[gammu]
 device= $GAMMU_DEVICE_PATH
 connection = at115200" > /etc/gammurc
 
@@ -102,7 +102,7 @@ sudo mysql -e "FLUSH PRIVILEGES;"
 #Configuring Gammu SMSD Configuration File
 echo "Configuring Gammu-Smsd Configuration File"
 
-echo "[gammu]
+sudo echo "[gammu]
 device= $GAMMU_DEVICE_PATH
 connection = at115200
 
@@ -133,7 +133,7 @@ sudo gammu-smsd-inject TEXT $GAMMU_PHONE -len 1 -text "$GAMMU_TEST_MESSAGE"
 
 # Installation of pm2 and deamonizing api
 
-if [[ $osversion = 'ubuntu' ]]
+if [ $osversion = 'ubuntu' ]
   then 
 sudo npm install pm2 -g
 
