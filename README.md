@@ -10,5 +10,5 @@
 ### Commande
 
 ```bash
-sh start.sh
+sh install.sh
 ```

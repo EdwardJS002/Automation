@@ -3,7 +3,7 @@
 if [ `whoami` = 'root' ]
   then
     echo "Vous ne devez pas être utilisateur root pour executer ce script. Utilisez:"
-    echo "sh ./start.sh"
+    echo "sh ./install.sh"
     exit
 fi
 
@@ -48,7 +48,7 @@ fi
 
 ##############################################################################################
 
-GAMMU_TEST_MESSAGE="Tout fonctionne nickel depuis Gammu à $(date +%H%M)"
+GAMMU_TEST_MESSAGE="Tout fonctionne nickel depuis Gammu à $(date +%H h +%M)"
 API_TEST_MESSAGE="API OK !"
 
 
@@ -85,10 +85,6 @@ echo "[gammu]
 device= $GAMMU_DEVICE_PATH
 connection = at115200" | sudo tee /etc/gammurc
 
-#Testing Gammu SMS
-echo "Testing Gammu SMS"
-
-sudo gammu sendsms TEXT $GAMMU_PHONE -text "$GAMMU_TEST_MESSAGE"
 
 #Configuring Mariadb
 echo "Configuring MariaDb"
@@ -139,24 +135,13 @@ cd ./api
 npm install
 pm2 start index.js --name=sms-api
 pm2 startup |  sed -ne '/sudo/,$ p' | sh
-# pm2 startup > startup.sh
-# sed -n '2p' startup.sh > pm2.sh
-# sudo sh startup.sh 
 pm2 save
-
-# sudo -i -u ubuntu sh << EOF
-# cd ./app
-# npm install
-# pm2 start index.js --name=sms-api
-# pm2 startup
-# pm2 save
-# EOF
 
 ##############################################################################################
 
 # Api testing
 
-curl http://localhost:3000/sms?phone=${phone}&message=API_OK
+curl http://localhost:3000/sms?phone=${GAMMU_PHONE}&message=API+OK+!
 
 
 ##############################################################################################
