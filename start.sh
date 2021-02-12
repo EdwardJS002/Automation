@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [ `whoami` == 'root' ]
+if [ `whoami` = 'root' ]
   then
     echo "Vous ne devez pas être utilisateur root pour executer ce script. Utilisez:"
     echo "sh ./0_START.sh"
@@ -13,7 +13,7 @@ fi
 
 osversion=$(grep '^ID=' /etc/os-release | cut -c4-);
 
-if [[ $osversion = 'ubuntu' ]]
+if [ $osversion = 'ubuntu' ]
   then 
     echo "Vous avez choisi Ubuntu comme système d'exploitation."
 
@@ -27,7 +27,7 @@ if [[ $osversion = 'ubuntu' ]]
 
     echo "Changement des fichiers pour utiliser le module SMS OK !"
 
-elif [[ $osversion = 'raspbian' ]]
+elif [ $osversion = 'raspbian' ]
   then
     echo "Vous avez choisi Raspberry Pi OS comme système d'exploitation."
 
