@@ -133,14 +133,19 @@ gammu-smsd-inject TEXT $GAMMU_PHONE -len 1 -text "$GAMMU_TEST_MESSAGE"
 
 # Installation of pm2 and deamonizing api
 
+if [ $osversion = 'ubuntu' ]
+  then 
 npm install pm2 -g
 
-cd ./api
+sudo -i -u ubuntu sh << EOF
+cd ./app
 npm install
 pm2 start index.js --name=sms-api
 pm2 startup
 pm2 save
+EOF
 
+fi
 
 ##############################################################################################
 
@@ -151,7 +156,7 @@ curl http://localhost:3000/sms?phone=${phone}&message=API_OK
 
 ##############################################################################################
 # Finished
-
+exit
 echo "It's Finished ! - Rebooting"
 reboot
 
