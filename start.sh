@@ -135,9 +135,10 @@ gammu-smsd-inject TEXT $GAMMU_PHONE -len 1 -text "$GAMMU_TEST_MESSAGE"
 
 npm install pm2 -g
 
-cd ./../api
+cd ./api
 npm install
-pm2 start index.js
+pm2 start index.js --name=sms-api
+pm2 startup
 pm2 save
 
 
@@ -145,7 +146,7 @@ pm2 save
 
 # Api testing
 
-#curl http://localhost:3000/sms
+curl http://localhost:3000/sms?phone=${phone}&message=API_OK
 
 
 ##############################################################################################
