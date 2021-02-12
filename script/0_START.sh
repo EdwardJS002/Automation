@@ -48,15 +48,15 @@ fi
 
 ##############################################################################################
 
+GAMMU_TEST_MESSAGE="Tout fonctionne nickel depuis Gammu à $(date +%H%M)"
+API_TEST_MESSAGE="API OK !"
+
+
 echo "Quel est votre numero de telephone (Pour vérification) ? :"
 read phone
 
 GAMMU_PHONE=$phone
 
-#echo "Quel est le message à envoyer ? : "
-#read test_message
-#GAMMU_TEST_MESSAGE=$test_message
-GAMMU_TEST_MESSAGE="Tout fonctionne nickel à $(date +%H%M)"
 
 #echo "Quel est le mot de passe de la base de donnee ? :"
 #read mysql_password
@@ -71,7 +71,7 @@ GAMMU_DEVICE_PATH="/dev/ttyS0"
 
 #Update and Install Software
 echo "Installing Primary Software"
-sudo apt-get update -y && sudo apt-get upgrade -y
+#sudo apt-get update -y && sudo apt-get upgrade -y
 sudo apt-get install -y vim curl git nodejs npm
 
 #Install Gammu and Mysql 
@@ -131,14 +131,25 @@ gammu-smsd-inject TEXT $GAMMU_PHONE -len 1 -text "$GAMMU_TEST_MESSAGE"
 
 ##############################################################################################
 
-# Installation of pm2
-
-npm install ./../api
+# Installation of pm2 and deamonizing api
 
 npm install pm2 -g
-pm2 start ./../api/index.js
+
+cd ./../api
+npm install
+pm2 start index.js
 pm2 save
 
+
+##############################################################################################
+
+# Api testing
+
+#curl http://localhost:3000/sms
+
+
+##############################################################################################
+# Finished
 
 echo "It's Finished ! - Rebooting"
 reboot
