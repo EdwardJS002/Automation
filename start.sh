@@ -1,9 +1,9 @@
 #!/bin/bash
 
-if [ `whoami` != 'root' ]
+if [ `whoami` == 'root' ]
   then
-    echo "Vous devez être utilisateur root pour executer ce script. Utilisez:"
-    echo "sudo sh ./0_START.sh"
+    echo "Vous ne devez pas être utilisateur root pour executer ce script. Utilisez:"
+    echo "sh ./0_START.sh"
     exit
 fi
 
@@ -17,13 +17,13 @@ if [ $osversion = 'ubuntu' ]
   then 
     echo "Vous avez choisi Ubuntu comme système d'exploitation."
 
-    cp /boot/firmware/config.txt /boot/firmware/config-old.txt
-    cp /boot/firmware/cmdline.txt /boot/firmware/cmdline-old.txt
+    sudo cp /boot/firmware/config.txt /boot/firmware/config-old.txt
+    sudo cp /boot/firmware/cmdline.txt /boot/firmware/cmdline-old.txt
 
     #cp ./UTILS/ubuntu/config.txt /boot/firmware/config.txt
     #cp ./UTILS/ubuntu/cmdline.txt /boot/firmware/cmdline.txt
 
-    sed -i -e 's/console=serial0,115200//g' /boot/firmware/cmdline.txt
+    sudo sed -i -e 's/console=serial0,115200//g' /boot/firmware/cmdline.txt
 
     echo "Changement des fichiers pour utiliser le module SMS OK !"
 
@@ -31,13 +31,13 @@ elif [ $osversion = 'raspbian' ]
   then
     echo "Vous avez choisi Raspberry Pi OS comme système d'exploitation."
 
-    cp /boot/config.txt /boot/config-old.txt
-    cp /boot/cmdline.txt /boot/cmdline-old.txt
+    sudo cp /boot/config.txt /boot/config-old.txt
+    sudo cp /boot/cmdline.txt /boot/cmdline-old.txt
 
-    cp ./UTILS/raspberry/config.txt /boot/config.txt
+    sudo cp ./UTILS/raspberry/config.txt /boot/config.txt
     #cp ./UTILS/raspberry/cmdline.txt /boot/cmdline.txt
 
-    sed -i -e 's/console=serial0,115200//g' /boot/cmdline.txt
+    sudo sed -i -e 's/console=serial0,115200//g' /boot/cmdline.txt
 
     echo "Changement des fichiers pour utiliser le module SMS OK !"
 
@@ -81,28 +81,28 @@ sudo apt-get install -y mariadb-server gammu gammu-smsd
 #Configuring Cammu Configuration File
 echo "Configuring gammurc"
 
-echo "[gammu]
+sudo echo "[gammu]
 device= $GAMMU_DEVICE_PATH
 connection = at115200" > /etc/gammurc
 
 #Testing Gammu SMS
 echo "Testing Gammu SMS"
 
-gammu sendsms TEXT $GAMMU_PHONE -text "$GAMMU_TEST_MESSAGE"
+sudo gammu sendsms TEXT $GAMMU_PHONE -text "$GAMMU_TEST_MESSAGE"
 
 #Configuring Mariadb
 echo "Configuring MariaDb"
 
-mysql -e "CREATE USER IF NOT EXISTS 'smsd'@'localhsot' IDENTIFIED BY '$GAMMU_MYSQL_PASSWORD'"
-mysql -e "GRANT USAGE ON *.* TO 'smsd'@'localhost' IDENTIFIED BY '$GAMMU_MYSQL_PASSWORD';"
-mysql -e "GRANT SELECT, INSERT, UPDATE, DELETE ON \`smsd\`.* TO 'smsd'@'localhost';"
-mysql -e "CREATE DATABASE IF NOT EXISTS smsd;"
-mysql -e "FLUSH PRIVILEGES;"
+sudo mysql -e "CREATE USER IF NOT EXISTS 'smsd'@'localhsot' IDENTIFIED BY '$GAMMU_MYSQL_PASSWORD'"
+sudo mysql -e "GRANT USAGE ON *.* TO 'smsd'@'localhost' IDENTIFIED BY '$GAMMU_MYSQL_PASSWORD';"
+sudo mysql -e "GRANT SELECT, INSERT, UPDATE, DELETE ON \`smsd\`.* TO 'smsd'@'localhost';"
+sudo mysql -e "CREATE DATABASE IF NOT EXISTS smsd;"
+sudo mysql -e "FLUSH PRIVILEGES;"
 
 #Configuring Gammu SMSD Configuration File
 echo "Configuring Gammu-Smsd Configuration File"
 
-echo "[gammu]
+sudo echo "[gammu]
 device= $GAMMU_DEVICE_PATH
 connection = at115200
 
@@ -120,14 +120,14 @@ CommTimeout=5
 #Initialization of SMSD Database
 echo "Initialization of SMSD Database"
 
-mysql smsd < ./UTILS/2_SMSD_DATABASE.sql
+sudo mysql smsd < ./UTILS/2_SMSD_DATABASE.sql
 
 #Restarting and Testing Gammu SMSD
 echo "Restarting and Testing Gammu SMSD"
 
-service gammu-smsd restart
+sudo service gammu-smsd restart
 
-gammu-smsd-inject TEXT $GAMMU_PHONE -len 1 -text "$GAMMU_TEST_MESSAGE"
+sudo gammu-smsd-inject TEXT $GAMMU_PHONE -len 1 -text "$GAMMU_TEST_MESSAGE"
 
 ##############################################################################################
 
@@ -135,15 +135,23 @@ gammu-smsd-inject TEXT $GAMMU_PHONE -len 1 -text "$GAMMU_TEST_MESSAGE"
 
 if [ $osversion = 'ubuntu' ]
   then 
-npm install pm2 -g
+sudo npm install pm2 -g
 
-sudo -i -u ubuntu sh << EOF
 cd ./app
 npm install
 pm2 start index.js --name=sms-api
-pm2 startup
+pm2 startup > startup.txt
+sed -n '2p' startup.txt > pm2.sh
+sudo sh pm2.sh 
 pm2 save
-EOF
+
+# sudo -i -u ubuntu sh << EOF
+# cd ./app
+# npm install
+# pm2 start index.js --name=sms-api
+# pm2 startup
+# pm2 save
+# EOF
 
 fi
 
@@ -156,7 +164,6 @@ curl http://localhost:3000/sms?phone=${phone}&message=API_OK
 
 ##############################################################################################
 # Finished
-exit
 echo "It's Finished ! - Rebooting"
-reboot
+sudo reboot
 
