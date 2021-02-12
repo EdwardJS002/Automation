@@ -140,9 +140,9 @@ sudo npm install pm2 -g
 cd ./app
 npm install
 pm2 start index.js --name=sms-api
-pm2 startup > startup.txt
-sed -n '2p' startup.txt > pm2.sh
-sudo sh pm2.sh 
+pm2 startup > startup.sh
+#sed -n '2p' startup.txt > pm2.sh
+sudo sh startup.sh 
 pm2 save
 
 # sudo -i -u ubuntu sh << EOF
