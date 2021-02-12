@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [[ `whoami` == 'root' ]]
+if [ `whoami` == 'root' ]
   then
     echo "Vous ne devez pas être utilisateur root pour executer ce script. Utilisez:"
     echo "sh ./0_START.sh"
