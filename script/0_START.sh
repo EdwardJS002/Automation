@@ -58,10 +58,10 @@ GAMMU_PHONE=$phone
 #GAMMU_TEST_MESSAGE=$test_message
 GAMMU_TEST_MESSAGE="Tout fonctionne nickel à $(date +%H%M)"
 
-echo "Quel est le mot de passe de la base de donnee ? :"
-read mysql_password
-
-GAMMU_MYSQL_PASSWORD=$mysql_password
+#echo "Quel est le mot de passe de la base de donnee ? :"
+#read mysql_password
+#GAMMU_MYSQL_PASSWORD=$mysql_password
+GAMMU_MYSQL_PASSWORD="mypassword"
 
 #echo "Quel est le chemin de l'appareil SMS ? :"
 #read device_path
@@ -72,7 +72,7 @@ GAMMU_DEVICE_PATH="/dev/ttyS0"
 #Update and Install Software
 echo "Installing Primary Software"
 sudo apt-get update -y && sudo apt-get upgrade -y
-sudo apt-get install -y vim curl git
+sudo apt-get install -y vim curl git nodejs npm
 
 #Install Gammu and Mysql 
 echo "Installing Gammu and Mysql"
@@ -128,6 +128,17 @@ echo "Restarting and Testing Gammu SMSD"
 service gammu-smsd restart
 
 gammu-smsd-inject TEXT $GAMMU_PHONE -len 1 -text "$GAMMU_TEST_MESSAGE"
+
+##############################################################################################
+
+# Installation of pm2
+
+npm install ./../api
+
+npm install pm2 -g
+pm2 start ./../api/index.js
+pm2 save
+
 
 echo "It's Finished ! - Rebooting"
 reboot
