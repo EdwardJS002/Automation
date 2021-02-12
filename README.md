@@ -1,4 +1,4 @@
-# Installation de Gammu sur Raspberry Pi
+# Installation d'une api SMS depuis un Raspberry Pi
 
 ### Systèmes d'Exploitation supportés:
 
@@ -10,5 +10,5 @@
 ### Commande
 
 ```bash
-sudo sh start.sh
+sh start.sh
 ```

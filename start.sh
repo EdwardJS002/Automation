@@ -133,16 +133,15 @@ sudo gammu-smsd-inject TEXT $GAMMU_PHONE -len 1 -text "$GAMMU_TEST_MESSAGE"
 
 # Installation of pm2 and deamonizing api
 
-if [ $osversion = 'ubuntu' ]
-  then 
 sudo npm install pm2 -g
 
 cd ./app
 npm install
 pm2 start index.js --name=sms-api
-pm2 startup > startup.sh
-sed -n '2p' startup.sh > pm2.sh
-sudo sh startup.sh 
+pm2 startup |  sed -ne '/sudo/,$ p' | sh
+# pm2 startup > startup.sh
+# sed -n '2p' startup.sh > pm2.sh
+# sudo sh startup.sh 
 pm2 save
 
 # sudo -i -u ubuntu sh << EOF
@@ -152,8 +151,6 @@ pm2 save
 # pm2 startup
 # pm2 save
 # EOF
-
-fi
 
 ##############################################################################################
 
