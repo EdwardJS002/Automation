@@ -3,7 +3,7 @@
 if [ `whoami` = 'root' ]
   then
     echo "Vous ne devez pas être utilisateur root pour executer ce script. Utilisez:"
-    echo "sh ./0_START.sh"
+    echo "sh ./start.sh"
     exit
 fi
 
@@ -81,9 +81,9 @@ sudo apt-get install -y mariadb-server gammu gammu-smsd
 #Configuring Cammu Configuration File
 echo "Configuring gammurc"
 
-sudo echo "[gammu]
+echo "[gammu]
 device= $GAMMU_DEVICE_PATH
-connection = at115200" > /etc/gammurc
+connection = at115200" | sudo tee /etc/gammurc
 
 #Testing Gammu SMS
 echo "Testing Gammu SMS"
@@ -102,7 +102,7 @@ sudo mysql -e "FLUSH PRIVILEGES;"
 #Configuring Gammu SMSD Configuration File
 echo "Configuring Gammu-Smsd Configuration File"
 
-sudo echo "[gammu]
+echo "[gammu]
 device= $GAMMU_DEVICE_PATH
 connection = at115200
 
@@ -115,7 +115,7 @@ password = $GAMMU_MYSQL_PASSWORD
 pc = localhost
 database = smsd
 CommTimeout=5
-" > /etc/gammu-smsdrc
+" | sudo tee /etc/gammu-smsdrc
 
 #Initialization of SMSD Database
 echo "Initialization of SMSD Database"
