@@ -2,13 +2,16 @@ const path = require('path');
 
 const bodyParser = require('body-parser');
 const express = require('express');
+const cors = require('cors');
 
 const sms = require('./routes/sms');
 
 // EXPRESS INITIALIZATION
 
+app.use(cors());
+
 const app = express();
-const port = 3000;
+const port = 4000;
 
 // PARSING
 
