@@ -1,39 +1,34 @@
-const path = require('path');
+import bodyParser from 'body-parser';
+import express from 'express';
+import cors from 'cors';
 
-const bodyParser = require('body-parser');
-const express = require('express');
-const cors = require('cors');
-
-const sms = require('./routes/sms');
+import router from './routes/router';
 
 // EXPRESS INITIALIZATION
 
 const app = express();
-const port = 4000;
+const port = parseInt(process.env.NODE_PORT || process.env.PORT || '4000');
 
-// PARSING
+/***************/
+/* Middlewares */
+/***************/
 
-app.use(cors());
-app.use(bodyParser.urlencoded({ extended: false }));
+// Body Parsing
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-// HBS CONFIGURATIONS
-// express.static.mime.define({ 'text/plain': ['md'] });
+// CORS
+app.use(cors());
 
-// app.set('views', path.join(__dirname, 'views'));
-// app.set('view engine', 'hbs');
+/**********/
+/* Router */
+/**********/
 
-//app.use(express.static(path.join(__dirname,"public")));
-app.use(express.static(__dirname + '/public'));
+app.use(router());
 
-// ROUTES
-
-app.use('/sms', sms);
-app.get('/', (req, res) => {
-	return res.render('index');
-});
-
-// LISTENING
+/*******************/
+/* Clients & Start */
+/*******************/
 
 app.listen(port, () => {
 	console.log(`SMS Api listening at http://localhost:${port}`);
