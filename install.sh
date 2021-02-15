@@ -94,7 +94,8 @@ driver = sqlite3
 DBdir = $PWD/database
 database = smsd.db
 CommTimeout=5
-logifile = $PWD/logfile.log
+logfile = $PWD/logfile.log
+debuglevel = 255
 " | sudo tee /etc/gammu-smsdrc
 
 #Initialization of SMSD Database
