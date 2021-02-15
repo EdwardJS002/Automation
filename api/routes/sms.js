@@ -25,31 +25,15 @@ router.get(
 				const execution = exec(
 					`gammu-smsd-inject TEXT ${phone.number} -len 1 -text ${message}`,
 					(error, stdout, stderr) => {
-						//	console.log(stdout);
-						// if (error) {
-						// 	return res.status(500).json(error).end();
-						// }
 						return stdout;
 					}
 				);
-
-				// const stdout = execution.stdout.on('data', (data) => {
-				// 	console.log(data.toString());
-				// 	//	return data.toString();
-				// });
 
 				const report = {
 					phone: phone.number,
 					message: message,
 					date: Date.now(),
 				};
-
-				// let rawData = fs.readFileSync('output.json');
-				// let parsedData = JSON.parse(rawData);
-
-				// parsedData.push({ ok: 'ok' });
-
-				// fs.writeFileSync('output.json', JSON.stringify(parsedData));
 			};
 
 			const message = shellEscape([req.query.message]);
@@ -85,4 +69,6 @@ router.get(
 	}
 );
 
-module.exports = router;
+export default router;
+
+//module.exports = router;

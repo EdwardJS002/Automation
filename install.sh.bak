@@ -58,6 +58,11 @@ read phone
 GAMMU_PHONE=$phone
 
 
+#echo "Quel est le mot de passe de la base de donnee ? :"
+#read mysql_password
+#GAMMU_MYSQL_PASSWORD=$mysql_password
+GAMMU_MYSQL_PASSWORD="mypassword"
+
 #echo "Quel est le chemin de l'appareil SMS ? :"
 #read device_path
 #GAMMU_DEVICE_PATH=$device_path
@@ -70,8 +75,8 @@ echo "Installing Primary Software"
 sudo apt-get install -y vim curl git nodejs npm
 
 #Install Gammu and Mysql 
-echo "Installing Gammu and Sqlite DBI Drivers"
-sudo apt-get install -y gammu gammu-smsd libdbd-sqlite3
+echo "Installing Gammu and Mysql"
+sudo apt-get install -y mariadb-server gammu gammu-smsd
 
 #Configuring Cammu Configuration File
 echo "Configuring gammurc"
@@ -80,6 +85,15 @@ echo "[gammu]
 device= $GAMMU_DEVICE_PATH
 connection = at115200" | sudo tee /etc/gammurc
 
+
+#Configuring Mariadb
+echo "Configuring MariaDb"
+
+sudo mysql -e "CREATE USER IF NOT EXISTS 'smsd'@'localhsot' IDENTIFIED BY '$GAMMU_MYSQL_PASSWORD'"
+sudo mysql -e "GRANT USAGE ON *.* TO 'smsd'@'localhost' IDENTIFIED BY '$GAMMU_MYSQL_PASSWORD';"
+sudo mysql -e "GRANT SELECT, INSERT, UPDATE, DELETE ON \`smsd\`.* TO 'smsd'@'localhost';"
+sudo mysql -e "CREATE DATABASE IF NOT EXISTS smsd;"
+sudo mysql -e "FLUSH PRIVILEGES;"
 
 #Configuring Gammu SMSD Configuration File
 echo "Configuring Gammu-Smsd Configuration File"
@@ -90,9 +104,12 @@ connection = at115200
 
 [smsd]
 service = sql
-driver = sqlite3
-DBdir = $PWD/database
-database = smsd.db
+driver = native_mysql
+host = localhost
+user = smsd
+password = $GAMMU_MYSQL_PASSWORD
+pc = localhost
+database = smsd
 CommTimeout=5
 " | sudo tee /etc/gammu-smsdrc
 
