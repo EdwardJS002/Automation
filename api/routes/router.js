@@ -1,16 +1,16 @@
-import { Router } from 'express'
-import router from './sms'
+// const express = require('express')
+// const Router = express.Router()
 
-import sms from './sms'
+// const sms = require('./sms')
 
-// Client
+// // Client
 
-const Router = () => {
-	const router = Router({ mergeParams: true })
+// // let router = () => {
+// let router = Router()
 
-	router.use('/sms', sms)
+// router.use('/sms', sms)
 
-	return router
-}
+// return router
+// // }
 
-export default Router
+// module.exports = router
