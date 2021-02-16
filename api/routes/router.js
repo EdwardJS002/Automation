@@ -1,16 +1,15 @@
-// const express = require('express')
-// const Router = express.Router()
+const express = require('express')
 
-// const sms = require('./sms')
+let sms = require('./sms/index')
 
-// // Client
+// Client
 
-// // let router = () => {
-// let router = Router()
+const router = () => {
+	let router = express.Router()
 
-// router.use('/sms', sms)
+	router.use('/sms', sms)
 
-// return router
-// // }
+	return router
+}
 
-// module.exports = router
+module.exports = router

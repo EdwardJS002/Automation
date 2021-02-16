@@ -24,12 +24,8 @@ app.use(cors())
 /* Router */
 /**********/
 
-//app.use(router())
-
-let sms = require('./routes/sms')
-const router = require('./routes/sms')
-
-router.use('/sms', sms)
+let router = require('./routes/router')
+app.use(router())
 
 /*******************/
 /* Clients & Start */
