@@ -1,10 +1,9 @@
 const bodyParser = require('body-parser')
 const express = require('express')
 const cors = require('cors')
-
-// const router = require('./routes/router')
-
-// EXPRESS INITIALIZATION
+/****************/
+/* Init Express */
+/****************/
 
 const app = express()
 const port = parseInt(process.env.NODE_PORT || process.env.PORT || '4000')
