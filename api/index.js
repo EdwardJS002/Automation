@@ -16,8 +16,33 @@ const port = parseInt(process.env.NODE_PORT || process.env.PORT || '4000')
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
 
+// Custom
+
+app.use((req, res, next) => {
+	// Save request start time
+	req.startTime = Date.now()
+
+	// Log all requests
+	res.on('finish', () => {
+		console.info(`${req.method} ${req.originalUrl} ${req.ip} (${Date.now() - req.startTime}ms)`)
+	})
+
+	// Security
+	res.removeHeader('X-Powered-By')
+
+	return next()
+})
+
 // CORS
 app.use(cors())
+
+/************/
+/* Database */
+/************/
+
+const { Sequelize } = require('sequelize')
+
+// const sequelize = new Sequelize('sqlite:./../database/example.db')
 
 /**********/
 /* Router */

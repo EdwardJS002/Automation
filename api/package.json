@@ -25,6 +25,8 @@
     "express-validator": "^6.9.2",
     "libphonenumber-js": "^1.9.6",
     "nodemon": "^2.0.6",
-    "shell-escape": "^0.2.0"
+    "sequelize": "^6.5.0",
+    "shell-escape": "^0.2.0",
+    "sqlite3": "^5.0.2"
   }
 }
