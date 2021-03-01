@@ -40,7 +40,7 @@ app.use(cors())
 /* Database */
 /************/
 
-const { Sequelize } = require('sequelize')
+//const { Sequelize } = require('sequelize')
 
 // const sequelize = new Sequelize('sqlite:./../database/example.db')
 
