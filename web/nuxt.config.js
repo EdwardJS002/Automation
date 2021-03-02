@@ -42,19 +42,19 @@ export default {
 	],
 
 	// Axios module configuration: https://go.nuxtjs.dev/config-axios
-	// axios: {
-	// 	baseURL: 'http://mini:4000'
-	// },
+	axios: {
+		baseURL: 'https://api.sms.colombes.sinnoh.fr'
+	},
 
 	// Axios configuration
-	axios: {
-		proxy: true
-	},
+	// axios: {
+	// 	proxy: true
+	// },
 
 	// Axios proxy
-	proxy: {
-		'/api': { target: config.API_ENDPOINT, pathRewrite: { '^/api': '' } }
-	},
+	// proxy: {
+	// 	'/api': { target: 'http://localhost:4000', pathRewrite: { '^/api': '' } }
+	// },
 
 	// Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify
 	vuetify: {

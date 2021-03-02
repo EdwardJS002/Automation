@@ -12,3 +12,9 @@
 ```bash
 sh install.sh
 ```
+
+### Brouillon
+
+```bash
+docker run -t -i --device=/dev/ttyUSB0 ubuntu bash
+```
